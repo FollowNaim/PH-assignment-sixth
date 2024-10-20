@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          container: {
+            center: true,
+          },
+          fontFamily: {
+            lato: "Lato, sans-serif",
+            inter: "Inter, sans-serif",
+          },
+          extend: {
+            colors: {
+              primary: "#0E7A81",
+              accents: "rgba(14, 122, 129, 0.1)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        scroll-behavior: smooth;
+      }
+      .loader {
+        width: fit-content;
+        font-weight: bold;
+        font-family: monospace;
+        font-size: 30px;
+        background: linear-gradient(90deg, #000 50%, #0000 0) right/200% 100%;
+        animation: l21 2s infinite linear;
+      }
+      .loader::before {
+        content: "Loading...";
+        color: #0000;
+        padding: 0 5px;
+        background: inherit;
+        background-image: linear-gradient(90deg, #fff 50%, #000 0);
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+
+      @keyframes l21 {
+        100% {
+          background-position: left;
+        }
+      }
+      .active {
+        border-radius: 80px;
+        background: #0e798127 !important;
+        border: 1px solid #0e7a81;
+      }
+    </style>
+    <title>Peddy</title>
+  </head>
+  <body class="font-lato box-border">
+    <header>
+      <!-- <div class="navbar bg-base-100">
+        <div class="navbar-start">
+          <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabindex="0"
+              class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            >
+              <li><a>Item 1</a></li>
+              <li>
+                <a>Parent</a>
+                <ul class="p-2">
+                  <li><a>Submenu 1</a></li>
+                  <li><a>Submenu 2</a></li>
+                </ul>
+              </li>
+              <li><a>Item 3</a></li>
+            </ul>
+          </div>
+          <a class="btn btn-ghost text-xl"
+            ><div class="flex justify-center items-center gap-1 font-bold">
+              <img class="w-6 h-6" src="./images/logo.webp" alt="" />
+              <span class="text-2xl">Peddy</span>
+            </div></a
+          >
+        </div>
+        <div class="navbar-center hidden lg:flex">
+          <ul class="menu menu-horizontal px-1">
+            <li><a>Home</a></li>
+            <li>
+              <a>Shop</a>
+            </li>
+            <li><a>Contact</a></li>
+          </ul>
+        </div>
+        <div class="navbar-end">
+          <div class="p-1 rounded-full cursor-pointer border border-black/50">
+            <i class="fa-regular fa-user p-2"></i>
+          </div>
+        </div>
+      </div> -->
+
+      <nav
+        class="flex justify-between items-center max-w-screen-xl mx-auto px-4 py-3 relative"
+      >
+        <div class="flex gap-1 font-bold max-w-32">
+          <img class="w-6 h-6" src="./images/logo.webp" alt="Logo" />
+          <span class="text-2xl">Peddy</span>
+        </div>
+        <div class="hidden md:block">
+          <ul class="flex gap-4">
+            <li class="cursor-pointer hover:font-semibold">Home</li>
+            <li class="cursor-pointer hover:font-semibold">Shop</li>
+            <li class="cursor-pointer hover:font-semibold">Contact</li>
+          </ul>
+        </div>
+        <div class="min-w-32 hidden md:flex justify-end">
+          <div class="p-1 rounded-full border border-black/50 w-fit">
+            <i class="fa-regular fa-user p-2"></i>
+          </div>
+        </div>
+        <div class="block md:hidden cursor-pointer" onclick="openMenu()">
+          <i id="menuIcon" class="fa-solid fa-bars text-xl transform duration-300 ease-in-out"></i>
+        </div>
+        <div
+          id="mobile-menu"
+          class="transform block md:hidden absolute rounded-md text-white w-full top-16 m-0 -translate-x-1/2 px-4 left-1/2 -translate-y-96 transiton-transform duration-300 ease-in-out "
+        >
+          <div class="bg-[#1F2937] p-4 rounded-md">
+            <ul class="flex flex-col gap-4">
+            <li class="cursor-pointer">Home</li>
+            <li class="cursor-pointer">Shop</li>
+            <li class="cursor-pointer">Contact</li>
+            <div class="p-1 rounded-full border border-white/50 w-fit">
+              <i class="fa-regular fa-user p-2"></i>
+            </div>
+          </div>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <!-- Hero -->
+      <section class="mt-12">
+        <div
+          class="container flex flex-col justify-center items-center md:w-3/4 gap-6 text-center px-4"
+        >
+          <div>
+            <p class="font-semibold text-black/60 text-lg">
+              Bringing Families Together ❤️‍🔥
+            </p>
+          </div>
+          <div>
+            <h1 class="font-extrabold text-4xl leading-[48px]">
+              Your Path to Adoption <br />
+              Starts Here
+            </h1>
+          </div>
+          <div>
+            <p class="text-lg">
+              At Peddy, we connect you with lovable cats looking for their forever homes. Discover your perfect companion and start your rewarding adoption journey today!
+            </p>
+          </div>
+          <div>
+            <a href="#pets"
+              ><button class="btn bg-primary text-white px-8">
+                View More
+              </button></a
+            >
+          </div>
+        </div>
+      </section>
+      <!-- pet image -->
+      <section class="my-12">
+        <div class="container flex justify-center items-center">
+          <img class="max-w-lg w-full h-full" src="./images/pet.webp" alt="" />
+        </div>
+      </section>
+      <!-- Adopt your best fried -->
+
+      <section id="pets" class="mb-12">
+        <div class="container px-4">
+          <!-- Heading -->
+          <div class="md:w-2/3 mx-auto text-center flex flex-col gap-6">
+            <h2 class="text-3xl font-extrabold">Adopt Your Best Friend</h2>
+            <p class="text-lg">
+              Find your perfect furry companion at Peddy! <br> Explore our adorable cats and start your journey to a loving home today.
+            </p>
+          </div>
+          <!-- Categories -->
+          <div
+            id="categories-container"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center items-center gap-6 mt-10"
+          ></div>
+
+          <!-- Best deal for you -->
+          <div class="">
+            <div class="flex justify-between items-center my-10">
+              <h5 class="font-semibold text-lg">Best Deal For you</h5>
+              <button id="sort-by-price" class="btn bg-primary text-white px-8">
+                Sort by Price
+              </button>
+            </div>
+
+            <!-- Pets -->
+
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 relative"
+            >
+              <!-- Loading spinner -->
+              <div
+                id="spinner"
+                class="flex max-w-[932px] absolute w-full h-full justify-center items-center bg-white z-50 md:z-0 md:bg-transparent"
+              >
+                <!-- <span class="loading loading-ring loading-lg"></span> -->
+                <div class="loader"></div>
+              </div>
+              <!-- pet 1 -->
+              <div
+                id="adopt-container"
+                class="col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+              ></div>
+              <!-- gallery -->
+              <div
+                class="col-span-2 lg:col-span-1 p-4 border rounded-md h-fit overflow-auto"
+              >
+                <div
+                  id="gallery-container"
+                  class="grid grid-cols-2 gap-6 max-h-full"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal -->
+
+    <!-- Open the modal using ID.showModal() method -->
+    <dialog id="detailsModal" class="modal">
+      <div class="modal-box">
+        <div id="modal-container" class="modal-container"></div>
+        <div class="modal-action">
+          <form method="dialog" class="w-full">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn w-full bg-primary/10 border-primary">
+              Close
+            </button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Adopt Modal -->
+
+    <dialog id="adoptModal" class="modal bg-black/60">
+      <div class="modal-box">
+        <div id="modal2-container" class="modal2-container"></div>
+        <div class="modal-action hidden">
+          <form method="dialog" class="w-full">
+            <!-- if there is a button in form, it will close the modal -->
+            <button
+              id="adopt2-close"
+              class="btn w-full bg-primary/10 border-primary"
+            >
+              Close
+            </button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+    <!-- Footer -->
+    <footer class="bg-[#131313] py-16 px-4">
+      <div
+        class="container flex justify-between flex-col md:flex-row items-center text-white"
+      >
+        <div class="flex flex-col gap-4 w-full">
+          <div class="flex gap-3 items-center text-2xl font-bold">
+            <img class="w-6 h-6" src="./images/logo.webp" alt="" />
+            <span>Peddy</span>
+          </div>
+          <div>
+            <p class="text-white/90">
+              Location: av. Washington 165, NY CA <br />
+              54003 <br />
+              Phone: +31 85 964 47 25 <br />
+              Email: info@yourdomain.com <br />
+              Openings hours: 9.00 AM - 5.00 PM
+            </p>
+          </div>
+          <div class="flex gap-6">
+            <img
+              class="w-10 h-10"
+              src="https://img.icons8.com/?size=96&id=uLWV5A9vXIPu&format=png"
+              alt=""
+            />
+            <img
+              class="w-10 h-10"
+              src="https://img.icons8.com/?size=96&id=ClbD5JTFM7FA&format=png"
+              alt=""
+            />
+            <img
+              class="w-10 h-10"
+              src="https://img.icons8.com/?size=96&id=19318&format=png"
+              alt=""
+            />
+            <img
+              class="w-10 h-10"
+              src="https://img.icons8.com/?size=96&id=32323&format=png"
+              alt=""
+            />
+          </div>
+        </div>
+        <div
+          class="w-full flex flex-col justify-start md:justify-center my-5 lg:ml-7"
+        >
+          <h4 class="font-semibold text-lg">Useful Links</h4>
+          <ul class="text-white/60 flex flex-col justify-start gap-2 mt-6 ">
+            <li class="hover:text-white cursor-pointer w-fit">Home</li>
+            <li class="hover:text-white cursor-pointer w-fit">About Us</li>
+            <li class="hover:text-white cursor-pointer w-fit">Animals</li>
+            <li class="hover:text-white cursor-pointer w-fit">Foundation</li>
+            <li class="hover:text-white cursor-pointer w-fit">Contact</li>
+          </ul>
+        </div>
+        <div class="w-full">
+          <h4 class="font-semibold text-lg">Drop a Message</h4>
+          <div class="mt-6">
+            <input
+              class="input text-white/60 bg-white/5 rounded-md w-full"
+              type="text"
+              placeholder="Enter your email"
+            />
+            <button class="btn bg-primary w-full mt-4 border-0 text-white">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
